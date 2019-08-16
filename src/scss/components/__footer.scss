@@ -1,0 +1,49 @@
+.footer {
+    padding: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+
+    &-layout {
+        @include flex(space-between, stretch);
+        @include spacing(5px);
+        padding: 0;
+    }
+
+    &-left {
+      @include flex(left, center);
+      padding: 30px 0;
+
+      @media screen and (min-width: 640px) {
+        & {
+          padding: 40px 0;
+        }
+      }
+    }
+    
+    &-right {
+      @include flex(right, center);
+    }
+  
+    &-h {
+      @include font(12px, 400, 18px);
+      color: $color-reverse;
+      margin: 0;
+
+      @media screen and (min-width: 640px) {
+        & {
+          @include font(13px, 400, 20px);
+        }
+      }
+
+      @media screen and (min-width: 960px) {
+        & {
+          @include font(15px, 400, 20px);
+        }
+      }
+    }
+  
+  }
+  
+  
+  
+  

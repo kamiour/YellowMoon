@@ -1,0 +1,60 @@
+.card {
+  @include flex(center, center);
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0;
+  height: 100%;
+  border-radius: 5px;
+
+  &-portfolio {
+    position: relative;
+    box-shadow: 0px 8px 28px rgba(6, 6, 90, 0.06);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  &-background {
+    margin: 0;
+    width: 100%;
+  }
+  
+  &-foreground {
+    @include overlay(2, transparent, 1);
+    @include flex(center, center);
+    display: none;
+  }
+  
+  &-overlay {
+    @include overlay(1, $color-overlay, 0.7);
+    display: none;
+    margin: 0;
+  }
+  
+  &-title {
+    margin: 0;
+    @include font(20px, 400, 30px);
+    color: $color-reverse;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  &-subtitle {
+    margin: 0;
+    @include font(16px, 400, 20px);
+    color: $color-secondary;
+    text-align: center;
+    text-transform: none;
+  }
+
+  &-portfolio:hover .card-overlay, &-portfolio:hover .card-foreground {
+    @include flex(center, center);
+    flex-direction: column;
+  }
+  
+  &-portfolio:hover .card-background .img {
+    width: 110%;
+    height: 110%;
+  }
+}
+

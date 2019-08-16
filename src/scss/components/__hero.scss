@@ -1,0 +1,111 @@
+.hero {
+  position: relative;
+  margin: 0 auto;
+  padding: 60px 0;
+
+  @media screen and (min-width: 640px) {
+    & {
+      padding: 80px 0;
+    }
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+
+    @media screen and (min-width: 640px) {
+      & {
+        width: 90px;
+        height: 90px;
+      }
+    }
+
+    @media screen and (min-width: 960px) {
+      & {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    &-wrap {
+      @include flex(center, center);
+      margin-bottom: 35px;
+
+      @media screen and (min-width: 640px) {
+        & {
+          margin-bottom: 42px;
+        }
+      }
+    }
+  }
+
+  &-layout {
+    @include flex(center, center);
+    flex-direction: column;
+  }
+
+  &-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -2;
+    margin: 0;
+  }
+
+  &-overlay {
+    @include overlay(-1, $color-overlay, 0.5);
+  }
+
+  &-textarea {
+    @include flex(center, center);
+    flex-direction: column;
+    text-align: center;
+    color: $color-main;
+
+    .hero-title {
+      @include font(25px, 300, 35px);
+      margin-top: 0;
+      margin-bottom: 120px;
+      color: $color-secondary;
+
+      @media screen and (min-width: 480px) {
+        & {
+          @include font(28px, 300, 38px);
+          margin-bottom: 130px;
+        }
+      }
+
+      @media screen and (min-width: 960px) {
+        & {
+          @include font(34px, 300, 44px);
+          margin-bottom: 140px;
+        }
+      }
+    }
+    
+    .hero-description {
+      @include font(12px, 400, 18px);
+      color: $color-reverse;
+      margin-top: 0;
+      margin-bottom: 35px;
+      max-width: 450px;
+
+      @media screen and (min-width: 480px) {
+        & {
+          @include font(15px, 400, 24px);
+          margin-bottom: 40px;
+        }
+      }
+
+      @media screen and (min-width: 960px) {
+        & {
+          @include font(18px, 400, 28px);
+          margin-bottom: 45px;
+        }
+      }
+    }
+  }
+}

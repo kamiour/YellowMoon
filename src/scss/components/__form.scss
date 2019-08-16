@@ -1,0 +1,76 @@
+.form {
+  padding: 0 20px;
+  max-width: 700px;
+  margin: 0 auto;
+
+  &-layout {
+    @include flex(center, center);
+    @include spacing(4px);
+    flex-wrap: wrap;
+
+    @media screen and (min-width: 640px) {
+      @include spacing(8px);
+    }
+  }
+  
+  &-input {
+    margin-bottom: 8px;
+
+    @media screen and (min-width: 640px) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &-style {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: $color-main;
+    background-color: $color-secondary;
+    @include font(14px, 400, 18px);
+    padding: 10px;
+    margin: 0;
+
+    @media screen and (min-width: 640px) {
+      & {
+        @include font(16px, 400, 20px);
+        padding: 15px;
+      }
+    }
+  
+    &::placeholder {
+      color: $color-main;
+    }
+  }
+
+  &-area {
+    margin-bottom: 8px;
+
+    @media screen and (min-width: 640px) {
+      & {
+        margin-bottom: 16px;
+      }
+    }
+
+    &-message {
+      height: 159px;
+
+      @media screen and (min-width: 640px) {
+        & {
+          height: 180px;
+        }
+      }
+    }
+  }
+  
+  &-textarea {
+    resize: none;
+    height: 100%;
+  }
+  
+}
+
+
+
+
+

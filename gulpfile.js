@@ -49,14 +49,14 @@ var gulp = require('gulp'),
       logPrefix: "Frontend"
 };
 
-gulp.task('html:build', function () {
+gulp.task('html:build', async function () {
   gulp.src(path.src.html) //Выберем файлы по нужному пути
       .pipe(rigger()) //Прогоним через rigger
       .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
       .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
 });
 
-gulp.task('js:build', function () {
+gulp.task('js:build', async function () {
   gulp.src(path.src.js) //Найдем наш main файл
       .pipe(rigger()) //Прогоним через rigger
       .pipe(sourcemaps.init()) //Инициализируем sourcemap
@@ -66,7 +66,7 @@ gulp.task('js:build', function () {
       .pipe(reload({stream: true})); //И перезагрузим сервер
 });
 
-gulp.task('style:build', function () {
+gulp.task('style:build', async function () {
     gulp.src(path.src.style) //Выберем наш main.scss
         .pipe(sourcemaps.init()) //То же самое что и с js
         .pipe(sass().on('error', sass.logError)) //Скомпилируем
@@ -77,7 +77,7 @@ gulp.task('style:build', function () {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('fonts:build', function() {
+gulp.task('fonts:build', async function() {
     gulp.src(path.src.fonts)
         .pipe(gulp.dest(path.build.fonts))
 });
@@ -92,7 +92,7 @@ var imageminZopfli = require('imagemin-zopfli');
 var imageminMozjpeg = require('imagemin-mozjpeg'); //need to run 'brew install libpng'
 var imageminGiflossy = require('imagemin-giflossy');
 
-gulp.task('image:build', function() {
+gulp.task('image:build', async function() {
   return gulp.src(path.src.img)
       .pipe(cache(imagemin([
           //png
@@ -133,30 +133,27 @@ gulp.task('image:build', function() {
       .pipe(gulp.dest(path.build.img)); //И бросим в build
 });
 
-gulp.task('build', [
+gulp.task('build', gulp.series( 
   'html:build',
   'js:build',
   'style:build',
   'fonts:build',
   'image:build'
-]);
+));
 
 gulp.task('watch', function(){
   watch([path.watch.html], function(event, cb) {
-    gulp.start('html:build');
+    gulp.parallel('html:build');
   });
-  watch([path.watch.style], function(event, cb) {
-    gulp.start('style:build');
-  });
-  watch([path.watch.js], function(event, cb) {
-    gulp.start('js:build');
-  });
-  watch([path.watch.img], function(event, cb) {
-    gulp.start('image:build');
-  });
-  watch([path.watch.fonts], function(event, cb) {
-    gulp.start('fonts:build');
-  });
+});
+
+gulp.task('watch', function(done){
+  gulp.watch([path.watch.html], gulp.series('html:build')),
+  gulp.watch([path.watch.style], gulp.series('style:build')),
+  gulp.watch([path.watch.js], gulp.series('js:build')),
+  gulp.watch([path.watch.img], gulp.series('image:build')),
+  gulp.watch([path.watch.fonts], gulp.series('fonts:build')),
+  done();
 });
 
 gulp.task('webserver', function () {
@@ -167,4 +164,4 @@ gulp.task('clean', function (cb) {
   rimraf(path.clean, cb);
 });
 
-gulp.task('default', ['build', 'webserver', 'watch']);
+gulp.task('default', gulp.parallel('build', 'webserver', 'watch'));
